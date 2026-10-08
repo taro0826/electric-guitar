@@ -45,10 +45,10 @@ RasPike-ART は、Raspberry Pi 側の EV3RT 互換環境（TOPPERS/ASP3 ベー�
 
 | ポート | デバイス |
 | --- | --- |
-| TBD | 距離センサー |
-| TBD | フォースセンサー |
+| A（仮） | 距離センサー |
+| B（仮） | フォースセンサー |
 
-※ 組み立て後に確定します。
+※ 組み立て後に確定します。変更する場合は `app.c` のポート定義を書き換えてください。
 
 ## 開発環境のセットアップ
 
@@ -93,7 +93,22 @@ RasPike-ART の詳細は [RasPike-ART の README](https://github.com/ETrobocon/R
 
 ## ビルドと実行
 
-> 本リポジトリのプログラムは現在開発中です。ソースコードは `sample_c5_spike` と同様の構成（`app.c` / `app.h` / `app.cfg` / `Makefile.inc`）で追加していきます。
+> 本リポジトリのプログラムは現在開発中です（雛形のみ）。
+
+### ファイル構成
+
+`sample_c5_spike` と同様の構成です。
+
+| ファイル | 内容 |
+| --- | --- |
+| `app.c` | メインタスク。センサーのポート定義と、ギタータスクの起動 |
+| `app.h` | タスク優先度・タスク周期（`GUITAR_PERIOD`）の定義 |
+| `app.cfg` | タスクと周期ハンドラの生成（通常は変更不要） |
+| `Makefile.inc` | ビルド設定 |
+| `Guitar/Guitar.c` | ギタータスク本体。センサー値の取得と発音の処理を実装する |
+| `Guitar/Guitar.h` | ギターの調整用パラメータの定義 |
+
+演奏の処理は `Guitar/Guitar.c` の `guitar_task()`（10msec 周期で呼び出される）に実装します。タスク周期を変更する場合は `app.h` の `GUITAR_PERIOD` を変更してください。
 
 `sdk/workspace` で次のようにビルド・実行します。
 
