@@ -131,6 +131,10 @@ make start
 - [ ] フォースセンサーによる発音制御
 - [ ] 内蔵スピーカーでの演奏
 
+## 開発ルール
+
+issue・ブランチ・コミット・PRのルールは、AI（Claude Code）が読み込めるスキルとして [.claude/skills/](.claude/skills/) に置いています。人が作業する場合も同じルールに従ってください。issue と PR のテンプレートは [.github/](.github/) にあります。
+
 ## 謝辞・参考
 
 - [ETrobocon/RasPike-ART](https://github.com/ETrobocon/RasPike-ART) — Raspberry Pi 用 SPIKE 制御開発環境
