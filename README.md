@@ -52,22 +52,40 @@ RasPike-ART は、Raspberry Pi 側の EV3RT 互換環境（TOPPERS/ASP3 ベー�
 
 ## 開発環境のセットアップ
 
-詳細は [RasPike-ART の README](https://github.com/ETrobocon/RasPike-ART) を参照してください。概要は以下のとおりです。
+本リポジトリは、RasPike-ART のサンプル `sample_c5_spike` と同じく、`sdk/workspace` 配下に置く 1 つのアプリケーションです。そのため、RasPike-ART を取得したあと、`sdk/workspace` に移動してから本リポジトリを clone します。
+
+```
+RasPike-ART/
+└── sdk/
+    └── workspace/
+        ├── Makefile
+        ├── sample_c5/
+        ├── sample_c5_spike/
+        └── electric-guitar/   ← 本リポジトリ
+```
+
+RasPike-ART の詳細は [RasPike-ART の README](https://github.com/ETrobocon/RasPike-ART) を参照してください。
 
 1. Raspberry Pi 上で RasPike-ART を取得します（`--recursive` を忘れずに）。
 
    ```bash
    git clone --recursive https://github.com/ETrobocon/RasPike-ART.git
-   cd RasPike-ART/sdk/workspace
    ```
 
-2. SPIKE への書き込み環境をセットアップします（初回のみ）。
+2. `sdk/workspace` に移動し、本リポジトリを clone します。
+
+   ```bash
+   cd RasPike-ART/sdk/workspace
+   git clone https://github.com/taro0826/electric-guitar.git
+   ```
+
+3. SPIKE への書き込み環境をセットアップします（初回のみ）。`sdk/workspace` で実行します。
 
    ```bash
    make -f ../common/Makefile.raspike-art setup_spike_env
    ```
 
-3. SPIKE を DFU モードにして、SPIKE 側のプログラムを書き込みます。
+4. SPIKE を DFU モードにして、SPIKE 側のプログラムを書き込みます。
 
    ```bash
    make -f ../common/Makefile.raspike-art update_spike
@@ -75,19 +93,19 @@ RasPike-ART は、Raspberry Pi 側の EV3RT 互換環境（TOPPERS/ASP3 ベー�
 
 ## ビルドと実行
 
-> 本リポジトリのプログラムは現在開発中です。ディレクトリ構成やビルド手順は実装に合わせて更新します。
+> 本リポジトリのプログラムは現在開発中です。ソースコードは `sample_c5_spike` と同様の構成（`app.c` / `app.h` / `app.cfg` / `Makefile.inc`）で追加していきます。
 
-RasPike-ART では `sdk/workspace` 配下のアプリケーションを次のようにビルド・実行します。
+`sdk/workspace` で次のようにビルド・実行します。
 
 ```bash
-make img=<アプリケーション名>
+make img=electric-guitar
 make start
 ```
 
 実行手順:
 
 1. SPIKE のセンターボタンを押して電源を入れ、「∞」マークが表示された状態にします。
-2. Raspberry Pi 側で `make start` を実行します。
+2. Raspberry Pi 側の `sdk/workspace` で `make start` を実行します。
 3. 停止するときは `Ctrl+C` を押し、SPIKE のセンターボタンを長押しして電源を切ります。
 
 ## ロードマップ
